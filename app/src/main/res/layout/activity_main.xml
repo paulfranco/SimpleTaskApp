@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/backdesign"
     android:gravity="center"
     tools:context=".MainActivity">
 
@@ -16,14 +17,24 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:gravity="center"/>
     <EditText
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="email"
+        android:background="@drawable/edtdesign"
+        android:textColorHint="@android:color/white"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
         android:id="@+id/username_txt"/>
     <EditText
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="password"
+        android:background="@drawable/edtdesign"
+        android:padding="10dp"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:id="@+id/password_txt"/>
     <Button
         android:layout_width="match_parent"
@@ -31,6 +42,11 @@
         android:text="Log In"
         android:id="@+id/login_btn"
         android:layout_margin="10dp"
+        android:background="@drawable/edtdesign"
+        android:textColorHint="@android:color/white"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         android:textAppearance="?android:textAppearanceMedium"/>
     <TextView
         android:layout_width="match_parent"
