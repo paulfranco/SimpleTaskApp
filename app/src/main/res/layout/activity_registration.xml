@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backdesign"
+    android:gravity="center"
+    tools:context=".RegistrationActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registration"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:gravity="center"/>
+            <EditText
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="email"
+                android:background="@drawable/edtdesign"
+                android:textColorHint="@android:color/white"
+                android:padding="10dp"
+                android:textColor="@android:color/white"
+                android:id="@+id/username_reg"/>
+            <EditText
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="password"
+                android:background="@drawable/edtdesign"
+                android:padding="10dp"
+                android:textColorHint="@android:color/white"
+                android:textColor="@android:color/white"
+                android:id="@+id/password_reg"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:id="@+id/reg_btn"
+                android:layout_margin="10dp"
+                android:background="@drawable/edtdesign"
+                android:textColorHint="@android:color/white"
+                android:padding="10dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textAppearance="?android:textAppearanceMedium"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log In"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:id="@+id/login_txt"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
