@@ -144,6 +144,15 @@ public class HomeActivity extends AppCompatActivity {
                 viewHolder.setNote(model.getNote());
                 viewHolder.setDate(model.getDate());
 
+                viewHolder.myView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        updateData();
+
+                    }
+                });
+
             }
         };
 
@@ -173,6 +182,17 @@ public class HomeActivity extends AppCompatActivity {
             TextView mDate = myView.findViewById(R.id.date);
             mDate.setText(date);
         }
+    }
+    public void updateData(){
+
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(HomeActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(HomeActivity.this);
+
+        View myView = inflater.inflate(R.layout.update_input_field, null);
+        myDialog.setView(myView);
+
+        AlertDialog dialog = myDialog.create();
+        dialog.show();
     }
 
     // Menu
