@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
         String uId = mUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("TaskNote").child(uId);
+        mDatabase.keepSynced(true);
 
         // RecyclerView
         recyclerView = findViewById(R.id.recycler);
@@ -125,6 +127,24 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        FirebaseRecyclerAdapter<Data, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(
+                Data.class,
+                R.layout.item_data,
+                MyViewHolder.class,
+                mDatabase) {
+
+            @Override
+            protected void populateViewHolder(MyViewHolder viewHolder, Data model, int position) {
+
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setNote(model.getNote());
+                viewHolder.setDate(model.getDate());
+
+            }
+        };
+
+        recyclerView.setAdapter(adapter);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -141,7 +161,7 @@ public class HomeActivity extends AppCompatActivity {
             mTitle.setText(title);
         }
 
-        public void setNte(String note) {
+        public void setNote(String note) {
             TextView mNote = myView.findViewById(R.id.note);
             mNote.setText(note);
         }
