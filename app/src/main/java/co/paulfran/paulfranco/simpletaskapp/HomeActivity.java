@@ -44,6 +44,17 @@ public class HomeActivity extends AppCompatActivity {
     // RecyclerView
     private RecyclerView recyclerView;
 
+    // Update fields
+    private EditText titleUpdate;
+    private EditText noteUpdate;
+    private Button btnDelete;
+    private Button btnUpdate;
+
+    // Global Variables
+    private String title;
+    private String note;
+    private String post_key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +149,7 @@ public class HomeActivity extends AppCompatActivity {
                 mDatabase) {
 
             @Override
-            protected void populateViewHolder(MyViewHolder viewHolder, Data model, int position) {
+            protected void populateViewHolder(MyViewHolder viewHolder, final Data model, final int position) {
 
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setNote(model.getNote());
@@ -147,6 +158,10 @@ public class HomeActivity extends AppCompatActivity {
                 viewHolder.myView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        post_key = getRef(position).getKey();
+                        title = model.getTitle();
+                        note = model.getNote();
 
                         updateData();
 
@@ -185,14 +200,59 @@ public class HomeActivity extends AppCompatActivity {
     }
     public void updateData(){
 
+        // Set up the layout
         AlertDialog.Builder myDialog = new AlertDialog.Builder(HomeActivity.this);
         LayoutInflater inflater = LayoutInflater.from(HomeActivity.this);
 
         View myView = inflater.inflate(R.layout.update_input_field, null);
         myDialog.setView(myView);
 
-        AlertDialog dialog = myDialog.create();
+        final AlertDialog dialog = myDialog.create();
+
+        titleUpdate = myView.findViewById(R.id.edt_title_update);
+        noteUpdate = myView.findViewById(R.id.edt_note_update);
+
+        titleUpdate.setText(title);
+        titleUpdate.setSelection(title.length());
+
+        noteUpdate.setText(note);
+        noteUpdate.setSelection(note.length());
+
+        btnUpdate = myView.findViewById(R.id.btn_update);
+        btnDelete = myView.findViewById(R.id.btn_delete);
+
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                title = titleUpdate.getText().toString().trim();
+                note = noteUpdate.getText().toString().trim();
+
+                String mDate = DateFormat.getDateInstance().format(new Date());
+
+                Data data = new Data(title, note, mDate, post_key);
+
+                mDatabase.child(post_key).setValue(data);
+
+                dialog.dismiss();
+
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                mDatabase.child(post_key).removeValue();
+
+                dialog.dismiss();
+            }
+        });
         dialog.show();
+
+
     }
 
     // Menu
