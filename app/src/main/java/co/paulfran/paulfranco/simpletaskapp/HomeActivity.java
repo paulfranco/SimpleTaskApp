@@ -1,15 +1,19 @@
 package co.paulfran.paulfranco.simpletaskapp;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +37,9 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
+    // RecyclerView
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +56,17 @@ public class HomeActivity extends AppCompatActivity {
         String uId = mUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("TaskNote").child(uId);
+
+        // RecyclerView
+        recyclerView = findViewById(R.id.recycler);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
 
         // Bind FAB
         fabBtn = findViewById(R.id.fab_btn);
@@ -103,5 +121,34 @@ public class HomeActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+        View myView;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            myView = itemView;
+        }
+
+        public void setTitle(String title) {
+            TextView mTitle = myView.findViewById(R.id.title);
+            mTitle.setText(title);
+        }
+
+        public void setNte(String note) {
+            TextView mNote = myView.findViewById(R.id.note);
+            mNote.setText(note);
+        }
+
+        public void setDate(String date) {
+            TextView mDate = myView.findViewById(R.id.date);
+            mDate.setText(date);
+        }
     }
 }
